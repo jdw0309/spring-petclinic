@@ -12,5 +12,14 @@ pipeline {
         branch: 'main'
       }        
   }
-}
+  stage('Maven Build') {
+    steps {
+      sh 'mvc -Dmaven.test.failure.ignore=true clean package'
+    }
+  }
+
+
+
+        
+  }
 }
