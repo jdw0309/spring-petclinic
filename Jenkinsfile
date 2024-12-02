@@ -5,6 +5,10 @@ pipeline {
     jdk 'jdk17'
   }
 
+//Docker Hub 접속 정보
+  environment
+    DOCKERHUB_CREDENTIALS = credentials('dockerCredentials')
+  
   stages {
     stage('Git clone') {
       steps {
@@ -27,6 +31,11 @@ pipeline {
        }
       }
     }
-        
+  stage ('Docker Image Push') {
+    sh """
+    echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+    docker push dowon113/spring-petclinic:lastest
+    """
+    }   
   }
 }
