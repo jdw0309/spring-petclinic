@@ -17,9 +17,16 @@ pipeline {
       sh 'mvn -Dmaven.test.failure.ignore=true clean package'
     }
   }
-
-
-
+  stage('Docker Image') {
+    steps {
+      dir("${env.WORKSPACE}") {
+       sh """
+        docker build -t dowon113/spring-petclinic:$BUILD_NUMBER .
+        docker tag dowon113/spring-petclinic:$BUILD_NUMBER dowon113/spring-petclinic:latest
+       """
+       }
+      }
+    }
         
   }
 }
