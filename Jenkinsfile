@@ -6,9 +6,9 @@ pipeline {
   }
 
 //Docker Hub 접속 정보
-  environment
+  environment{
     DOCKERHUB_CREDENTIALS = credentials('dockerCredentials')
-  
+  }
   stages {
     stage('Git clone') {
       steps {
