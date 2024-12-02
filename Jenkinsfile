@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Git clone') {
       steps {
-        git url: 'https'://github.com/jdw0309/spring-petclinic.git',
+        git url: 'https://github.com/jdw0309/spring-petclinic.git',
         branch: 'main'
       }        
   }
