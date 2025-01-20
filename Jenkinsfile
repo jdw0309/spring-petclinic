@@ -7,8 +7,8 @@ pipeline {
 
 //Docker Hub 접속 정보
   environment{
-    DOCKERHUB_CREDENTIALS = credentials('dockerCredentials')
-    AWS_CREDENTIALS = credentials('dockerCredentials')
+    DOCKERHUB_CREDENTIALS = credentials('gitCredential')
+    AWS_CREDENTIALS = credentials('AWSCredential')
     GIT_CREDENTIALS = credentials('dockerCredentials')
     REGION = 'ap-northeast-2'
   }
