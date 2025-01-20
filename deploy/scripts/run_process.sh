@@ -1,3 +1,3 @@
-#/bin/bash
+#!/bin/bash
 cd /home/ubuntu/deploy/scripts
-docker compose up -d --build;
+docker-compose up -d --build;
