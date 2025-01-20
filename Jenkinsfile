@@ -37,8 +37,8 @@ pipeline {
         echo 'Docker Image Build'
         dir("${env.WORKSPACE}") {
           sh """
-          docker build -t akstn519/spring-petclinic:$BUILD_NUMBER .
-          docker tag akstn519/spring-petclinic:$BUILD_NUMBER akstn519/spring-petclinic:latest
+          docker build -t dowon113/spring-petclinic:$BUILD_NUMBER .
+          docker tag dowon113/spring-petclinic:$BUILD_NUMBER dowon113/spring-petclinic:latest
           """
         }
       }
@@ -49,7 +49,7 @@ pipeline {
       steps {
         sh """
         echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-        docker push akstn519/spring-petclinic:latest
+        docker push dowon113/spring-petclinic:latest
         """
       }
     }
