@@ -21,7 +21,6 @@ pipeline {
           branch: 'main'
       }
     }
-  }
   
     //Maven build 작업
     stage('Maven Build') {
@@ -30,7 +29,6 @@ pipeline {
         sh 'mvn -Dmaven.test.failure.ignore=true clean package'
       }
     }
-
     // Docker Image 생성
     stage('Docker Image Build') {
       steps {
@@ -43,7 +41,6 @@ pipeline {
         }
       }
     }
-
   // DockerHub Login an Image Push
   stage('Docker Login') {
     steps {
@@ -53,7 +50,6 @@ pipeline {
       """
     }
   }
-
   // Docker Image 삭제
   stage('Remove Docker Image') {
     steps {
@@ -63,4 +59,7 @@ pipeline {
       """
     }
   }
+
+  }
 }
+
