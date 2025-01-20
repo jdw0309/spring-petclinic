@@ -20,6 +20,47 @@ pipeline {
         git url: 'https://github.com/jdw0309/spring-petclinic.git',
           branch: 'main'
       }
-    } 
+    }
+  }
+  
+    //Maven build 작업
+    stage('Maven Build') {
+      steps {
+        echo 'Maven Build'
+        sh 'mvn -Dmaven.test.failure.ignore=true clean package'
+      }
+    }
+
+    // Docker Image 생성
+    stage('Docker Image Build') {
+      steps {
+        dcho 'Docker Image build'
+        dir("${env.WORKSPACE}") {
+          sh """
+          docker build -t dowon113/spring-petclinic:$BUILD_NUMBER .
+          docker tag dowon113/spring-petclinic:$BUILD_NUMBER dowon113/spring-petclinic:latest
+          """
+        }
+      }
+    }
+
+  // DockerHub Login an Image Push
+  stage('Docker Login') {
+    steps {
+      sh """
+      echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+      docker push dowon113/spring-petclinic:latest
+      """
+    }
+  }
+
+  // Docker Image 삭제
+  stage('Remove Docker Image') {
+    steps {
+      sh """
+      docker rmi dowon113/spring-petclinic-petclinic$BUILD_NUMBER
+      docker rmi dowon113/spring-petclinic:latest
+      """
+    }
   }
 }
